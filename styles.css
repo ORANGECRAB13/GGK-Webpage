@@ -543,33 +543,41 @@ button {
 
 @media (hover: none) and (pointer: coarse) {
   .product-image-pair .primary-image {
-    animation: pair-primary 6s ease-in-out infinite;
+    animation: pair-primary 8.5s ease-in-out infinite;
+    animation-delay: 0s;
   }
 
   .product-image-pair .secondary-image {
-    animation: pair-secondary 6s ease-in-out infinite;
+    animation: pair-secondary 8.5s ease-in-out infinite;
+    animation-delay: 0s;
   }
 }
 
 @keyframes pair-primary {
   0%,
-  42% {
+  38% {
     opacity: 1;
   }
-  58%,
-  100% {
+  50%,
+  88% {
     opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
 @keyframes pair-secondary {
   0%,
-  42% {
+  38% {
     opacity: 0;
   }
-  58%,
-  100% {
+  50%,
+  88% {
     opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -1172,5 +1180,13 @@ button {
     width: 100%;
     max-height: calc(100vh - 20px);
     padding: 12px;
+  }
+
+  /* Prevent iOS Safari from auto-zooming on focused inputs. */
+  .checkout-form input,
+  .checkout-form select,
+  .checkout-form textarea,
+  .newsletter-form input {
+    font-size: 16px;
   }
 }
