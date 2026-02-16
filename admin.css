@@ -132,6 +132,11 @@ p {
 
 .stats-grid {
   display: grid;
+  gap: 10px;
+}
+
+.stats-grid-inner {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
 }
@@ -160,6 +165,34 @@ p {
   padding: 14px;
   display: grid;
   gap: 10px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.panel-toggle {
+  border: 1px solid var(--line);
+  background: #10131a;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.panel-content {
+  display: grid;
+  gap: 10px;
+}
+
+.panel.is-collapsed .panel-content {
+  display: none;
 }
 
 .panel-note {
@@ -211,12 +244,16 @@ p {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.02);
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1.1;
 }
 
 .chip input {
   accent-color: var(--accent-2);
+  width: 12px;
+  height: 12px;
+  margin: 0;
 }
 
 select,
@@ -267,6 +304,15 @@ thead th {
 
 tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
+}
+
+.customer-row {
+  border-left: 4px solid var(--customer-color, transparent);
+}
+
+.customer-cell {
+  position: relative;
+  font-weight: 600;
 }
 
 .mono {

@@ -26,6 +26,7 @@ const authPassword = document.getElementById("authPassword");
 const authMessage = document.getElementById("authMessage");
 const authStateLabel = document.getElementById("authStateLabel");
 const signOutButton = document.getElementById("signOutButton");
+const collapsiblePanels = Array.from(document.querySelectorAll("[data-collapsible]"));
 
 const filterContainers = {
   payment: document.getElementById("paymentFilters"),
@@ -39,6 +40,7 @@ let allRows = [];
 let filteredRows = [];
 let costOverrides = loadCostOverrides();
 let currentSession = null;
+const panelStateKey = "ggk_admin_panel_state_v1";
 
 const activeFilters = {
   payment: new Set(),
@@ -66,6 +68,51 @@ function loadCostOverrides() {
 
 function saveCostOverrides() {
   localStorage.setItem(storageKey, JSON.stringify(costOverrides));
+}
+
+function loadPanelState() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(panelStateKey) || "{}");
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function savePanelState(state) {
+  localStorage.setItem(panelStateKey, JSON.stringify(state));
+}
+
+function setPanelCollapsed(panel, collapsed) {
+  const content = panel.querySelector(".panel-content");
+  const toggle = panel.querySelector("[data-panel-toggle]");
+  if (!content || !toggle) return;
+
+  panel.classList.toggle("is-collapsed", collapsed);
+  content.hidden = collapsed;
+  toggle.setAttribute("aria-expanded", String(!collapsed));
+  toggle.textContent = collapsed ? "Expand" : "Collapse";
+}
+
+function initCollapsiblePanels() {
+  const state = loadPanelState();
+
+  collapsiblePanels.forEach((panel) => {
+    const panelId = panel.dataset.panelId;
+    const toggle = panel.querySelector("[data-panel-toggle]");
+    if (!panelId || !toggle) return;
+
+    const defaultCollapsed = false;
+    const collapsed = panelId in state ? Boolean(state[panelId]) : defaultCollapsed;
+    setPanelCollapsed(panel, collapsed);
+
+    toggle.addEventListener("click", () => {
+      const isCollapsed = panel.classList.contains("is-collapsed");
+      setPanelCollapsed(panel, !isCollapsed);
+      state[panelId] = !isCollapsed;
+      savePanelState(state);
+    });
+  });
 }
 
 function itemKey(row) {
@@ -259,6 +306,21 @@ function formatDate(value) {
   return date.toLocaleString("en-PH", { dateStyle: "medium", timeStyle: "short" });
 }
 
+function hashStringToHue(input) {
+  let hash = 0;
+  for (let i = 0; i < input.length; i += 1) {
+    hash = (hash << 5) - hash + input.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash) % 360;
+}
+
+function getCustomerColor(name) {
+  const source = name && name !== "N/A" ? name : "unknown";
+  const hue = hashStringToHue(source);
+  return `hsl(${hue} 80% 58%)`;
+}
+
 function renderOrdersTable(rows) {
   ordersTableBody.innerHTML = "";
   if (rows.length === 0) {
@@ -271,11 +333,14 @@ function renderOrdersTable(rows) {
     const unitCost = getUnitCost(row);
     const lineCost = unitCost * row.quantity;
     const lineProfit = row.line_total - lineCost;
+    const customerColor = getCustomerColor(row.customer_name || "N/A");
     const tr = document.createElement("tr");
+    tr.className = "customer-row";
+    tr.style.setProperty("--customer-color", customerColor);
     tr.innerHTML = `
       <td>${formatDate(row.created_at)}</td>
       <td class="mono">${row.order_id.slice(0, 8)}</td>
-      <td>${row.customer_name || "N/A"}</td>
+      <td class="customer-cell">${row.customer_name || "N/A"}</td>
       <td>${row.payment_method}</td>
       <td>${row.delivery_method}</td>
       <td>${row.product_name}</td>
@@ -396,3 +461,5 @@ signOutButton.addEventListener("click", async () => {
   if (!supabaseClient) return;
   await supabaseClient.auth.signOut();
 });
+
+initCollapsiblePanels();

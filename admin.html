@@ -22,24 +22,34 @@
         </div>
       </header>
 
-      <section class="panel" id="authPanel">
-        <h2>Admin Sign In</h2>
-        <p class="panel-note">Use your GGK admin account. Access is controlled by Supabase RLS.</p>
-        <form id="authForm" class="auth-form">
-          <label>
-            Email
-            <input id="authEmail" type="email" required />
-          </label>
-          <label>
-            Password
-            <input id="authPassword" type="password" required />
-          </label>
-          <button class="pill-button" type="submit">Sign In</button>
-          <p id="authMessage" class="panel-note"></p>
-        </form>
+      <section class="panel" id="authPanel" data-collapsible data-panel-id="auth">
+        <div class="panel-head">
+          <h2>Admin Sign In</h2>
+          <button class="panel-toggle" type="button" data-panel-toggle aria-expanded="true">Collapse</button>
+        </div>
+        <div class="panel-content">
+          <p class="panel-note">Use your GGK admin account. Access is controlled by Supabase RLS.</p>
+          <form id="authForm" class="auth-form">
+            <label>
+              Email
+              <input id="authEmail" type="email" required />
+            </label>
+            <label>
+              Password
+              <input id="authPassword" type="password" required />
+            </label>
+            <button class="pill-button" type="submit">Sign In</button>
+            <p id="authMessage" class="panel-note"></p>
+          </form>
+        </div>
       </section>
 
-      <section class="stats-grid" id="statsGrid">
+      <section class="stats-grid panel" id="statsGrid" data-collapsible data-panel-id="stats">
+        <div class="panel-head">
+          <h2>Summary</h2>
+          <button class="panel-toggle" type="button" data-panel-toggle aria-expanded="true">Collapse</button>
+        </div>
+        <div class="panel-content stats-grid-inner">
         <article class="stat-card">
           <span>Orders</span>
           <strong id="ordersCount">0</strong>
@@ -60,90 +70,106 @@
           <span>Profit</span>
           <strong id="profitTotal">PHP 0.00</strong>
         </article>
+        </div>
       </section>
 
-      <section class="panel">
-        <h2>Filters</h2>
-        <p class="panel-note">Filters are stackable. You can apply multiple groups at the same time.</p>
-        <div class="filters-grid">
-          <div class="filter-group">
-            <h3>Payment</h3>
-            <div id="paymentFilters" class="chip-list"></div>
-          </div>
-          <div class="filter-group">
-            <h3>Fulfillment</h3>
-            <div id="deliveryFilters" class="chip-list"></div>
-          </div>
-          <div class="filter-group">
-            <h3>Size</h3>
-            <div id="sizeFilters" class="chip-list"></div>
-          </div>
-          <div class="filter-group">
-            <h3>Product</h3>
-            <div id="productFilters" class="chip-list"></div>
-          </div>
-          <div class="filter-group">
-            <h3>Shirt Color</h3>
-            <div id="colorFilters" class="chip-list"></div>
-          </div>
-          <div class="filter-group">
-            <h3>Sort</h3>
-            <select id="sortSelect">
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="revenue_desc">Revenue High to Low</option>
-              <option value="revenue_asc">Revenue Low to High</option>
-              <option value="quantity_desc">Qty High to Low</option>
-            </select>
+      <section class="panel" data-collapsible data-panel-id="filters">
+        <div class="panel-head">
+          <h2>Filters</h2>
+          <button class="panel-toggle" type="button" data-panel-toggle aria-expanded="true">Collapse</button>
+        </div>
+        <div class="panel-content">
+          <p class="panel-note">Filters are stackable. You can apply multiple groups at the same time.</p>
+          <div class="filters-grid">
+            <div class="filter-group">
+              <h3>Payment</h3>
+              <div id="paymentFilters" class="chip-list"></div>
+            </div>
+            <div class="filter-group">
+              <h3>Fulfillment</h3>
+              <div id="deliveryFilters" class="chip-list"></div>
+            </div>
+            <div class="filter-group">
+              <h3>Size</h3>
+              <div id="sizeFilters" class="chip-list"></div>
+            </div>
+            <div class="filter-group">
+              <h3>Product</h3>
+              <div id="productFilters" class="chip-list"></div>
+            </div>
+            <div class="filter-group">
+              <h3>Shirt Color</h3>
+              <div id="colorFilters" class="chip-list"></div>
+            </div>
+            <div class="filter-group">
+              <h3>Sort</h3>
+              <select id="sortSelect">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="revenue_desc">Revenue High to Low</option>
+                <option value="revenue_asc">Revenue Low to High</option>
+                <option value="quantity_desc">Qty High to Low</option>
+              </select>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="panel">
-        <h2>Cost Controls</h2>
-        <p class="panel-note">
-          Default shirt cost is <strong>PHP 300</strong>. Edit per design/color/size below.
-        </p>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Type</th>
-                <th>Unit Cost (PHP)</th>
-              </tr>
-            </thead>
-            <tbody id="costTableBody"></tbody>
-          </table>
+      <section class="panel" data-collapsible data-panel-id="costs">
+        <div class="panel-head">
+          <h2>Cost Controls</h2>
+          <button class="panel-toggle" type="button" data-panel-toggle aria-expanded="true">Collapse</button>
+        </div>
+        <div class="panel-content">
+          <p class="panel-note">
+            Default shirt cost is <strong>PHP 300</strong>. Edit per design/color/size below.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Color</th>
+                  <th>Size</th>
+                  <th>Type</th>
+                  <th>Unit Cost (PHP)</th>
+                </tr>
+              </thead>
+              <tbody id="costTableBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
-      <section class="panel">
-        <h2>Orders</h2>
-        <p class="panel-note" id="statusMessage">Loading data...</p>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Payment</th>
-                <th>Fulfillment</th>
-                <th>Product</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Type</th>
-                <th>Qty</th>
-                <th>Revenue</th>
-                <th>Cost</th>
-                <th>Profit</th>
-              </tr>
-            </thead>
-            <tbody id="ordersTableBody"></tbody>
-          </table>
+      <section class="panel" data-collapsible data-panel-id="orders">
+        <div class="panel-head">
+          <h2>Orders</h2>
+          <button class="panel-toggle" type="button" data-panel-toggle aria-expanded="true">Collapse</button>
+        </div>
+        <div class="panel-content">
+          <p class="panel-note" id="statusMessage">Loading data...</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Payment</th>
+                  <th>Fulfillment</th>
+                  <th>Product</th>
+                  <th>Color</th>
+                  <th>Size</th>
+                  <th>Type</th>
+                  <th>Qty</th>
+                  <th>Revenue</th>
+                  <th>Cost</th>
+                  <th>Profit</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
