@@ -20,6 +20,8 @@ const checkoutClose = document.querySelector("[data-checkout-close]");
 const checkoutForm = document.querySelector("[data-checkout-form]");
 const checkoutStatus = document.querySelector("[data-checkout-status]");
 const placeOrderButton = document.querySelector("[data-place-order]");
+const checkoutSummaryItems = document.querySelector("[data-checkout-summary-items]");
+const checkoutSummarySubtotal = document.querySelector("[data-checkout-summary-subtotal]");
 const fulfillmentMethodSelect = document.querySelector("[data-fulfillment-method]");
 const paymentMethodSelect = document.querySelector("[data-payment-method]");
 const addressFields = document.querySelector("[data-address-fields]");
@@ -125,6 +127,7 @@ const closeVariantModal = () => {
 };
 
 const openCheckout = () => {
+  renderCheckoutSummary();
   checkoutModal.classList.add("is-open");
   checkoutModal.setAttribute("aria-hidden", "false");
 };
@@ -186,6 +189,36 @@ const renderCart = () => {
   cartCount.textContent = itemCount;
   cartSubtotal.textContent = formatPHP(subtotal);
   openCheckoutButton.disabled = itemCount === 0;
+  renderCheckoutSummary();
+};
+
+const renderCheckoutSummary = () => {
+  if (!checkoutSummaryItems || !checkoutSummarySubtotal) {
+    return;
+  }
+
+  checkoutSummaryItems.innerHTML = "";
+  const items = Array.from(cart.values());
+
+  if (items.length === 0) {
+    checkoutSummaryItems.innerHTML = '<p class="checkout-summary-empty">No items yet.</p>';
+  } else {
+    items.forEach((item) => {
+      const row = document.createElement("div");
+      row.className = "checkout-summary-item";
+      row.innerHTML = `
+        <div>
+          <div>${item.name}</div>
+          <div class="checkout-summary-meta">${item.shirtColor} / ${item.shirtSize} x ${item.quantity}</div>
+        </div>
+        <strong>${formatPHP(item.price * item.quantity)}</strong>
+      `;
+      checkoutSummaryItems.appendChild(row);
+    });
+  }
+
+  const { subtotal } = getCartSummary();
+  checkoutSummarySubtotal.textContent = formatPHP(subtotal);
 };
 
 const addVariantToCart = (button, shirtColor, shirtSize) => {

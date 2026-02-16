@@ -32,12 +32,6 @@
           </div>
 
           <div class="nav-actions">
-            <button class="icon-button" aria-label="Search">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.98 12.04l3.74 3.74-1.41 1.41-3.74-3.74A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>
-            </button>
-            <button class="icon-button" aria-label="Account">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 12c4.42 0 8 2.24 8 5v3H4v-3c0-2.76 3.58-5 8-5Z"/></svg>
-            </button>
             <button class="icon-button cart-button" aria-label="Cart">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6h14l-1.5 9H8L6.5 6Zm-2-2h-3v2h2l2.2 11.2A2 2 0 0 0 7.66 20H19v-2H7.66l-.3-1.5H19a2 2 0 0 0 1.97-1.67l1.6-9.83A2 2 0 0 0 20.26 4H4.5Z"/></svg>
               <span class="cart-count" aria-live="polite">0</span>
@@ -304,6 +298,16 @@
           <button class="icon-button" data-checkout-close aria-label="Close checkout">×</button>
         </div>
         <form class="checkout-form" data-checkout-form>
+          <div class="checkout-summary">
+            <h4>Order Summary</h4>
+            <div class="checkout-summary-items" data-checkout-summary-items>
+              <p class="checkout-summary-empty">No items yet.</p>
+            </div>
+            <div class="checkout-summary-total">
+              <span>Subtotal</span>
+              <strong data-checkout-summary-subtotal>PHP 0.00</strong>
+            </div>
+          </div>
           <label>
             Full Name
             <input name="customer_name" type="text" required />

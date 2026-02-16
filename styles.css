@@ -715,28 +715,78 @@ button {
 }
 
 .checkout-panel {
-  width: min(560px, 100%);
+  width: min(480px, 100%);
   background: #0f1115;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 18px;
+  padding: 14px;
+  max-height: calc(100vh - 40px);
+  overflow: auto;
 }
 
 .checkout-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .checkout-form {
   display: grid;
-  gap: 12px;
+  gap: 8px;
+}
+
+.checkout-summary {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  max-height: 170px;
+  overflow: auto;
+}
+
+.checkout-summary h4 {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.checkout-summary-items {
+  display: grid;
+  gap: 8px;
+}
+
+.checkout-summary-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.checkout-summary-meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.checkout-summary-empty {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.checkout-summary-total {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .checkout-form label {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   font-size: 12px;
   color: var(--muted);
   text-transform: uppercase;
@@ -750,7 +800,7 @@ button {
   background: #0b0d11;
   color: var(--text);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font: inherit;
 }
 
@@ -777,14 +827,14 @@ button {
   background: #0b0d11;
   color: var(--text);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font: inherit;
 }
 
 .fulfillment-note {
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font-size: 13px;
   color: var(--muted);
 }
@@ -834,8 +884,20 @@ button {
 
 @media (max-width: 960px) {
   .nav {
-    grid-template-columns: auto auto;
-    justify-content: space-between;
+    grid-template-columns: 40px 1fr auto;
+    justify-content: initial;
+  }
+
+  .brand {
+    justify-self: center;
+  }
+
+  .nav-actions {
+    justify-self: end;
+  }
+
+  .menu-toggle {
+    justify-self: start;
   }
 
   .nav-links {
@@ -915,5 +977,11 @@ button {
     left: 10px;
     width: auto;
     bottom: 10px;
+  }
+
+  .checkout-panel {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    padding: 12px;
   }
 }
