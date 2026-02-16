@@ -37,6 +37,9 @@ const variantModal = document.querySelector("[data-variant-modal]");
 const variantClose = document.querySelector("[data-variant-close]");
 const variantForm = document.querySelector("[data-variant-form]");
 const variantStatus = document.querySelector("[data-variant-status]");
+const variantTitle = document.querySelector("[data-variant-title]");
+const apparelOptions = document.querySelector("[data-apparel-options]");
+const jewelryOptions = document.querySelector("[data-jewelry-options]");
 
 const supabaseUrl = window.GGK_CONFIG?.supabaseUrl || "";
 const supabaseAnonKey = window.GGK_CONFIG?.supabaseAnonKey || "";
@@ -116,6 +119,18 @@ const closeCart = () => {
 const openVariantModal = (button) => {
   pendingProductButton = button;
   variantStatus.textContent = "";
+  const productKind = button.dataset.productKind || "apparel";
+
+  if (productKind === "jewelry") {
+    variantTitle.textContent = "Select Jewelry Type";
+    apparelOptions.hidden = true;
+    jewelryOptions.hidden = false;
+  } else {
+    variantTitle.textContent = "Select Shirt Options";
+    apparelOptions.hidden = false;
+    jewelryOptions.hidden = true;
+  }
+
   variantModal.classList.add("is-open");
   variantModal.setAttribute("aria-hidden", "false");
 };
@@ -172,7 +187,7 @@ const renderCart = () => {
       row.innerHTML = `
         <div>
           <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-meta">${item.shirtColor} / ${item.shirtSize}</div>
+          <div class="cart-item-meta">${item.optionLabel}</div>
           <div class="cart-item-meta">${formatPHP(item.price)} x ${item.quantity}</div>
         </div>
         <div class="cart-item-actions">
@@ -209,7 +224,7 @@ const renderCheckoutSummary = () => {
       row.innerHTML = `
         <div>
           <div>${item.name}</div>
-          <div class="checkout-summary-meta">${item.shirtColor} / ${item.shirtSize} x ${item.quantity}</div>
+          <div class="checkout-summary-meta">${item.optionLabel} x ${item.quantity}</div>
         </div>
         <strong>${formatPHP(item.price * item.quantity)}</strong>
       `;
@@ -243,6 +258,8 @@ const addVariantToCart = (button, shirtColor, shirtSize) => {
       name: productName,
       shirtColor,
       shirtSize,
+      itemType: null,
+      optionLabel: `${shirtColor} / ${shirtSize}`,
       price: productPrice,
       quantity: 1,
     });
@@ -251,6 +268,39 @@ const addVariantToCart = (button, shirtColor, shirtSize) => {
   renderCart();
   openCart();
   showToast(`Added ${shirtColor} / ${shirtSize}`);
+};
+
+const addJewelryToCart = (button, jewelryType) => {
+  const productId = button.dataset.productId;
+  const productName = button.dataset.productName;
+  const productPrice = jewelryType === "Necklace" ? 120 : 80;
+  const variantKey = `${productId}::${jewelryType}`;
+
+  if (!productId || !productName) {
+    showToast("Product data is incomplete.");
+    return;
+  }
+
+  const existing = cart.get(variantKey);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.set(variantKey, {
+      key: variantKey,
+      id: productId,
+      name: productName,
+      shirtColor: null,
+      shirtSize: null,
+      itemType: jewelryType,
+      optionLabel: jewelryType,
+      price: productPrice,
+      quantity: 1,
+    });
+  }
+
+  renderCart();
+  openCart();
+  showToast(`Added ${jewelryType}`);
 };
 
 const updateCartItemQuantity = (itemKey, change) => {
@@ -396,6 +446,7 @@ const placeOrder = async (event) => {
       product_name: item.name,
       shirt_color: item.shirtColor,
       shirt_size: item.shirtSize,
+      item_type: item.itemType,
       unit_price: item.price,
       quantity: item.quantity,
       line_total: item.price * item.quantity,
@@ -467,15 +518,25 @@ variantForm.addEventListener("submit", (event) => {
   }
 
   const formData = new FormData(variantForm);
-  const shirtColor = String(formData.get("shirt_color") || "").trim();
-  const shirtSize = String(formData.get("shirt_size") || "").trim();
+  const productKind = pendingProductButton.dataset.productKind || "apparel";
 
-  if (!shirtColor || !shirtSize) {
-    variantStatus.textContent = "Please choose color and size.";
-    return;
+  if (productKind === "jewelry") {
+    const jewelryType = String(formData.get("jewelry_type") || "").trim();
+    if (!jewelryType) {
+      variantStatus.textContent = "Please choose necklace or bracelet.";
+      return;
+    }
+    addJewelryToCart(pendingProductButton, jewelryType);
+  } else {
+    const shirtColor = String(formData.get("shirt_color") || "").trim();
+    const shirtSize = String(formData.get("shirt_size") || "").trim();
+    if (!shirtColor || !shirtSize) {
+      variantStatus.textContent = "Please choose color and size.";
+      return;
+    }
+    addVariantToCart(pendingProductButton, shirtColor, shirtSize);
   }
 
-  addVariantToCart(pendingProductButton, shirtColor, shirtSize);
   closeVariantModal();
 });
 

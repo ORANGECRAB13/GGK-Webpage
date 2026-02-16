@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>God Gifted Kids Apparel</title>
+    <link rel="icon" type="image/jpeg" href="assets/website-icon.jpg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -23,12 +24,8 @@
           <a class="brand" href="#">GGK</a>
           <div class="nav-links">
             <a href="#new">New</a>
-            <a href="#hype">Partners</a>
-            <a href="#mens">Our St</a>
-            <a href="#womens">Women</a>
-            <a href="#kids">Kids</a>
-            <a href="#sale">Sale</a>
-            <a href="#brands">Brands</a>
+            <a href="#hype">Flora Drop</a>
+            <a href="#hype">Our Story</a>
           </div>
 
           <div class="nav-actions">
@@ -91,28 +88,18 @@
           </div>
         </section>
 
-        <section class="category-bar" id="hype">
-          <div class="category">
-            <span class="tag">Hype</span>
-            <h3>Graphic Tees</h3>
-            <p>Bold FLORA art hits.</p>
-          </div>
-          <div class="category">
-            <span class="tag">New</span>
-            <h3>Color Stories</h3>
-            <p>Yellow, blue, and neon pops.</p>
-          </div>
-          <div class="category">
-            <span class="tag">Kids</span>
-            <h3>Mini Icons</h3>
-            <p>Standout fits for young leaders.</p>
+        <section class="our-story" id="hype">
+          <div class="section-header story-header">
+            <p class="eyebrow">GGK Journey</p>
+            <h2>Our Story</h2>
+            <p>Milestones from concept to community.</p>
           </div>
         </section>
 
         <section class="collection" id="mens">
           <div class="section-header">
             <p class="eyebrow">Top Sellers</p>
-            <h2>FLORA Picks</h2>
+            <h2>FLORA District</h2>
             <p>Featured pieces from the upcoming set reveal.</p>
             <div class="tabs">
               <button class="tab is-active" data-filter="all">All</button>
@@ -188,6 +175,80 @@
           </div>
         </section>
 
+        <section class="collection jewelry-collection" id="brands">
+          <div class="section-header">
+            <p class="eyebrow">Partner Items</p>
+            <h2>Jewelry</h2>
+            <p>Accessory picks by Loraine Morandarte</p>
+          </div>
+
+          <div class="product-grid" data-products>
+            <article class="product" data-category="jewelry">
+              <div class="product-image product-image-pair">
+                <img
+                  class="primary-image"
+                  src="assets/Partner Items/635259979_122294806514207083_6138504611978104708_n.jpg"
+                  alt="Red Jewelry partner item"
+                />
+                <img
+                  class="secondary-image"
+                  src="assets/Partner Items/638009724_122294806424207083_2069318343562980771_n.jpg"
+                  alt="Red Jewelry alternate view"
+                />
+                <span class="pill">Partner</span>
+                <div class="product-badge">Jewelry</div>
+              </div>
+              <h3>Red Jewelry</h3>
+              <p class="product-meta">One size</p>
+              <div class="product-footer">
+                <span class="price">From ₱ 80</span>
+                <button
+                  class="add"
+                  data-add
+                  data-product-kind="jewelry"
+                  data-product-id="partner-red-jewelry"
+                  data-product-name="Red Jewelry"
+                  data-product-price="0"
+                >
+                  + Add
+                </button>
+              </div>
+            </article>
+
+            <article class="product" data-category="jewelry">
+              <div class="product-image product-image-pair">
+                <img
+                  class="primary-image"
+                  src="assets/Partner Items/635357522_122294806466207083_260623285508020003_n.jpg"
+                  alt="Black one partner item"
+                />
+                <img
+                  class="secondary-image"
+                  src="assets/Partner Items/638068851_122294806376207083_7161265339297679918_n.jpg"
+                  alt="Black one alternate view"
+                />
+                <span class="pill">Partner</span>
+                <div class="product-badge">Jewelry</div>
+              </div>
+              <h3>Black One</h3>
+              <p class="product-meta">One size</p>
+              <div class="product-footer">
+                <span class="price">From ₱ 80</span>
+                <button
+                  class="add"
+                  data-add
+                  data-product-kind="jewelry"
+                  data-product-id="partner-black-one"
+                  data-product-name="Black One"
+                  data-product-price="0"
+                >
+                  + Add
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section class="lookbook" id="womens">
           <div class="lookbook-content">
             <p class="eyebrow">GGK Studio</p>
@@ -235,10 +296,12 @@
         </div>
         <div>
           <h4>Follow</h4>
-          <a href="#">Instagram</a>
+          <a href="https://www.instagram.com/ggk_apparel/?hl=en">Instagram</a>
           <a href="#">TikTok</a>
-          <a href="#">Facebook</a>
-          <a href="#">YouTube</a>
+          <a href="https://www.facebook.com/GGKapparel">Facebook</a>
+        </div>
+        <div class="footer-admin">
+          <a class="admin-link" href="admin.html" target="_blank" rel="noreferrer">Admin</a>
         </div>
       </footer>
     </div>
@@ -246,28 +309,39 @@
     <div class="variant-modal" data-variant-modal aria-hidden="true">
       <div class="variant-panel">
         <div class="checkout-header">
-          <h3>Select Options</h3>
+          <h3 data-variant-title>Select Options</h3>
           <button class="icon-button" data-variant-close aria-label="Close options">×</button>
         </div>
         <form class="checkout-form" data-variant-form>
-          <label>
-            Shirt Color
-            <select name="shirt_color" required>
-              <option value="Black">Black</option>
-              <option value="White">White</option>
-            </select>
-          </label>
-          <label>
-            Size
-            <select name="shirt_size" required>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M" selected>M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-            </select>
-          </label>
+          <div data-apparel-options>
+            <label>
+              Shirt Color
+              <select name="shirt_color">
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+              </select>
+            </label>
+            <label>
+              Size
+              <select name="shirt_size">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </label>
+          </div>
+          <div data-jewelry-options hidden>
+            <label>
+              Jewelry Type
+              <select name="jewelry_type">
+                <option value="Necklace">Necklace - PHP 120</option>
+                <option value="Bracelet">Bracelet - PHP 80</option>
+              </select>
+            </label>
+          </div>
           <button class="primary" type="submit">Add to Bag</button>
           <p class="checkout-status" data-variant-status></p>
         </form>
