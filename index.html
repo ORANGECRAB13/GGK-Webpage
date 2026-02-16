@@ -136,7 +136,15 @@
               <p class="product-meta">Oversized fit</p>
               <div class="product-footer">
                 <span class="price">₱ 599</span>
-                <button class="add" data-add>+ Add</button>
+                <button
+                  class="add"
+                  data-add
+                  data-product-id="flora-stay-winnin-black"
+                  data-product-name="Stay Winnin Tee"
+                  data-product-price="599"
+                >
+                  + Add
+                </button>
               </div>
             </article>
 
@@ -150,7 +158,15 @@
               <p class="product-meta">Soft cotton</p>
               <div class="product-footer">
                 <span class="price">₱ 599</span>
-                <button class="add" data-add>+ Add</button>
+                <button
+                  class="add"
+                  data-add
+                  data-product-id="flora-stay-true-white"
+                  data-product-name="Stay True Tee"
+                  data-product-price="599"
+                >
+                  + Add
+                </button>
               </div>
             </article>
 
@@ -164,7 +180,15 @@
               <p class="product-meta">Bold contrast</p>
               <div class="product-footer">
                 <span class="price">₱ 599</span>
-                <button class="add" data-add>+ Add</button>
+                <button
+                  class="add"
+                  data-add
+                  data-product-id="flora-stay-lovely-blue"
+                  data-product-name="Stay Lovely Tee"
+                  data-product-price="599"
+                >
+                  + Add
+                </button>
               </div>
             </article>
           </div>
@@ -225,21 +249,137 @@
       </footer>
     </div>
 
+    <div class="variant-modal" data-variant-modal aria-hidden="true">
+      <div class="variant-panel">
+        <div class="checkout-header">
+          <h3>Select Options</h3>
+          <button class="icon-button" data-variant-close aria-label="Close options">×</button>
+        </div>
+        <form class="checkout-form" data-variant-form>
+          <label>
+            Shirt Color
+            <select name="shirt_color" required>
+              <option value="Black">Black</option>
+              <option value="White">White</option>
+            </select>
+          </label>
+          <label>
+            Size
+            <select name="shirt_size" required>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M" selected>M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">Add to Bag</button>
+          <p class="checkout-status" data-variant-status></p>
+        </form>
+      </div>
+    </div>
+
     <div class="cart-drawer" data-cart>
       <div class="cart-header">
         <h3>Your bag</h3>
         <button class="icon-button" data-cart-close aria-label="Close cart">×</button>
       </div>
-      <div class="cart-body">
-        <p>Items will appear here. Add something to start building your fit.</p>
+      <div class="cart-body" data-cart-items>
+        <p class="cart-empty">Items will appear here. Add something to start building your fit.</p>
+      </div>
+      <div class="cart-totals">
+        <span>Subtotal</span>
+        <strong data-cart-subtotal>PHP 0.00</strong>
       </div>
       <div class="cart-footer">
-        <button class="primary">Checkout</button>
+        <button class="primary" data-open-checkout disabled>Checkout</button>
+      </div>
+    </div>
+
+    <div class="checkout-modal" data-checkout-modal aria-hidden="true">
+      <div class="checkout-panel">
+        <div class="checkout-header">
+          <h3>Checkout</h3>
+          <button class="icon-button" data-checkout-close aria-label="Close checkout">×</button>
+        </div>
+        <form class="checkout-form" data-checkout-form>
+          <label>
+            Full Name
+            <input name="customer_name" type="text" required />
+          </label>
+          <label>
+            Email
+            <input name="customer_email" type="email" required />
+          </label>
+          <label>
+            Phone
+            <input name="customer_phone" type="tel" required />
+          </label>
+          <label>
+            Fulfillment Method
+            <select name="fulfillment_method" data-fulfillment-method required>
+              <option value="pickup">Pickup at De La Salle University</option>
+              <option value="courier">Courier Delivery</option>
+            </select>
+          </label>
+          <div class="fulfillment-note" data-pickup-note>
+            Pickup point: De La Salle University, 2401 Taft Ave, Malate, Manila.
+          </div>
+          <div data-address-fields>
+            <label>
+              Address
+              <input name="address_line" type="text" />
+            </label>
+            <label>
+              City
+              <input name="city" type="text" />
+            </label>
+          </div>
+          <label>
+            Payment Method
+            <select name="payment_method" data-payment-method required>
+              <option value="cash">Cash (Pickup Only)</option>
+              <option value="gcash">GCash</option>
+            </select>
+          </label>
+          <button class="ghost" type="button" data-show-gcash hidden>View GCash QR</button>
+          <label>
+            Notes
+            <textarea name="notes" rows="3" placeholder="Optional delivery notes"></textarea>
+          </label>
+          <button class="primary" type="submit" data-place-order>Place Order</button>
+          <p class="checkout-status" data-checkout-status></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="checkout-modal" data-gcash-modal aria-hidden="true">
+      <div class="checkout-panel gcash-panel">
+        <div class="checkout-header">
+          <h3>GCash Payment</h3>
+          <button class="icon-button" data-gcash-close aria-label="Close GCash QR">×</button>
+        </div>
+        <img
+          class="gcash-qr"
+          data-gcash-qr
+          src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=GGK%20GCASH%20PAYMENT"
+          alt="GCash QR code"
+        />
+        <div class="gcash-terms">
+          <strong>Terms and Conditions</strong>
+          <p>1. Send payment only to the official GGK GCash account.</p>
+          <p>2. Use your order reference in the payment note.</p>
+          <p>3. Orders are processed after payment verification.</p>
+          <p>4. Payments are non-refundable once order production starts.</p>
+        </div>
       </div>
     </div>
 
     <div class="toast" data-toast>Added to bag</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
