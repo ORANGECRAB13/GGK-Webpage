@@ -361,10 +361,6 @@ const setPaymentOptions = () => {
   const hasPrev = Array.from(paymentMethodSelect.options).some((o) => o.value === previous);
   paymentMethodSelect.value = hasPrev ? previous : paymentMethodSelect.options[0].value;
   showGcashButton.hidden = paymentMethodSelect.value !== "gcash";
-
-  if (method === "courier" && paymentMethodSelect.value === "gcash") {
-    openGcash();
-  }
 };
 
 const onPaymentChange = () => {
