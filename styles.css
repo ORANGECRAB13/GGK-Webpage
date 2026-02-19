@@ -494,7 +494,7 @@ button {
 }
 
 .jewelry-collection .product-grid {
-  grid-template-columns: repeat(2, minmax(260px, 360px));
+  grid-template-columns: minmax(260px, 360px);
   justify-content: center;
 }
 
@@ -531,6 +531,29 @@ button {
 
 .product-image-pair .secondary-image {
   opacity: 0;
+}
+
+.product-image-multi .multi-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: multi-rotate 12s ease-in-out infinite;
+}
+
+.product-image-multi .frame-1 {
+  animation-delay: 0s;
+}
+
+.product-image-multi .frame-2 {
+  animation-delay: 3s;
+}
+
+.product-image-multi .frame-3 {
+  animation-delay: 6s;
+}
+
+.product-image-multi .frame-4 {
+  animation-delay: 9s;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -578,6 +601,22 @@ button {
   88% {
     opacity: 1;
   }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes multi-rotate {
+  0% {
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  22% {
+    opacity: 1;
+  }
+  30%,
   100% {
     opacity: 0;
   }
