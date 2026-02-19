@@ -494,7 +494,7 @@ button {
 }
 
 .jewelry-collection .product-grid {
-  grid-template-columns: minmax(260px, 360px);
+  grid-template-columns: repeat(2, minmax(260px, 360px));
   justify-content: center;
 }
 

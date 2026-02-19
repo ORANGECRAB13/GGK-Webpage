@@ -303,6 +303,41 @@ const addJewelryToCart = (button, jewelryType) => {
   showToast(`Added ${jewelryType}`);
 };
 
+const addFixedProductToCart = (button) => {
+  const productId = button.dataset.productId;
+  const productName = button.dataset.productName;
+  const productPrice = Number(button.dataset.productPrice || "0");
+  const itemType = button.dataset.itemType || null;
+  const optionLabel = button.dataset.optionLabel || itemType || "Standard";
+  const variantKey = `${productId}::${optionLabel}`;
+
+  if (!productId || !productName || productPrice <= 0) {
+    showToast("Product data is incomplete.");
+    return;
+  }
+
+  const existing = cart.get(variantKey);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.set(variantKey, {
+      key: variantKey,
+      id: productId,
+      name: productName,
+      shirtColor: null,
+      shirtSize: null,
+      itemType,
+      optionLabel,
+      price: productPrice,
+      quantity: 1,
+    });
+  }
+
+  renderCart();
+  openCart();
+  showToast(`Added ${optionLabel}`);
+};
+
 const updateCartItemQuantity = (itemKey, change) => {
   const item = cart.get(itemKey);
   if (!item) {
@@ -502,7 +537,14 @@ slides.forEach((slide) => {
 });
 
 addButtons.forEach((button) => {
-  button.addEventListener("click", () => openVariantModal(button));
+  button.addEventListener("click", () => {
+    const productKind = button.dataset.productKind || "apparel";
+    if (productKind === "jewelry_fixed") {
+      addFixedProductToCart(button);
+      return;
+    }
+    openVariantModal(button);
+  });
 });
 
 variantForm.addEventListener("submit", (event) => {
